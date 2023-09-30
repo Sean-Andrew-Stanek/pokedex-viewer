@@ -1,4 +1,4 @@
-alert('Hello World');
+alert('Hello world');
 
 let favoriteFood = ['pickles', 'potatoes', 'carrots'];
 document.write('My favorite food');
