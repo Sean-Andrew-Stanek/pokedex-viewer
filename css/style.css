@@ -23,7 +23,7 @@ body {
     border: white 3px solid;
 }
 
-.button-container {
+.left-menu {
     display: inline-flex;
     flex-direction: column;
     min-width: 25vw;
@@ -35,12 +35,12 @@ h1 {
     text-align: center;
 }
 
-.button-container * {
+.left-menu * {
     width: 100%;
     box-sizing: border-box;
 }
 
-.button-container button {
+.left-menu button {
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
     font-size: 30px;
