@@ -1,12 +1,5 @@
-//Exercise 1.5
 
-document.write ("<center><h1>Exercise 1.3</h1> <hr>");
-
-
-/*** EXERCISE 1.5 IIFE ***/
 let pokemonRepository = function() {
-
-    //*** EXERCISE 1.5 DATASET ***/
     let pokemonList = [{
         name: 'Bulbasaur',
         type: ['Grass', 'Poison'],
@@ -29,65 +22,47 @@ let pokemonRepository = function() {
     }];
 
     return{
-        /*** EXERCISE 1.5 PUBLIC FUNCTIONS ***/
         add: function(pokemon) {
             pokemonList.push(pokemon);
         },
         getAll: function() {
             return pokemonList;
+        },
+        addListItem: function(pokemon) {
+            // Create a list item    
+            let listItem = document.createElement('div');
+
+            let button = document.createElement('button');
+            button.innerText = pokemon.name;
+            
+            //TODO:  Add style for all types
+            button.classList.add(pokemon.type[0].toLowerCase());
+            button.classList.add('pokemon-button');
+            button.addEventListener('click', function() {pokemonRepository.showDetails(pokemon)});
+
+            listItem.appendChild(button);
+            selectablePokemonList.appendChild(listItem);
+        },
+        showDetails: function(pokemon) {
+            console.log(pokemon);
         }
+
     };
 }();
 
-//BONUS: shows that you can add to the list
-let addPokemon = {name: 'Charmander', type: ['Fire',''], size: 1};
-pokemonRepository.add(addPokemon);
-//Table Style
-document.write('<style> table, th, td { border: 1px solid white; } </style>');
 
-//Initialize table DO NOT REMOVE
-document.write('<table>');
+//Example of adding a new object
+pokemonRepository.add({name: 'Charmander', type: ['Fire',''], size: 1});
 
-/*** EXERCISE 1.5 FOREACH LOOP ***/
+// Left side "button container"
+let selectablePokemonList = document.querySelector('.selectable-pokemon-list');
+
+//Create buttons for the repository
 pokemonRepository.getAll().forEach(function(pokemon)
 {
-    //DO NOT REMOVE
-    document.write('<tr>')
-
-    //Name
-    document.write('<td>'+ pokemon.name + '</td>')
-
-    //Type One (expects there to be data)
-    document.write('<td>' + pokemon.type[0]+'</td>')
-
-    //Prints second type or an empty cell if there isn't one
-    if(pokemon.type.length>1)
-        document.write('<td>' + pokemon.type[1]+'</td>')
-    else
-        document.write('<td></td>')
-    
-    //Size  (will be deleted at first opportunity)
-    document.write('<td>');
-    switch(pokemon.size) {
-        case 1:
-            document.write('Small (unevolved)');
-            break;
-        case 2:
-            document.write('Medium (first evolution)');
-            break;
-        default:
-            document.write('Large (Wow, that\'s Big!)')
-    };
-    document.write('</td>');
-
-    //Ends row DO NOT REMOVE
-    document.write('</tr>');
+    pokemonRepository.addListItem(pokemon);
 
 });
 
-
-//End Table DO NOT REMOVE
-document.write('</table>');
-
-//Remove center from top
-document.write('</center>')
+// Shorthand, but compatability issues
+// pokemonRepository.getAll().forEach(pokemon => pokemonRepository.addListItem(pokemon))

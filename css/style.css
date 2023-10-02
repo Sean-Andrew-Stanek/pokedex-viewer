@@ -1,4 +1,71 @@
-body{
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --type-color-normal: rgba(255, 255, 255, 1);
+    --type-color-water: rgba(0, 0, 0, 1);
+    --type-color-fire: rgba(0, 0, 0, 1);
+    --type-color-grass: rgba(0, 0, 0, 1);
+    --type-background-water: rgba(0, 150, 200, 1);
+    --type-background-normal: rgba(170, 80, 30, 1);
+    --type-background-fire: rgba(255, 0, 0, 1);
+    --type-background-grass: rgba(25, 220, 25);
+}
+
+body {
     background-color: black;
     color: white;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.border {
+    border: white 3px solid;
+}
+
+.button-container {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 25vw;
+    min-height: 100vh;
+    align-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.button-container * {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button-container button {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    min-height: 50px;
+    width: 90%;
+    margin: 2px;
+    margin-left: 5%;
+}
+
+.water {
+    background-color: var(--type-background-water);
+    color: var(--type-color-water);
+}
+
+.normal {
+    background-color: var(--type-background-normal);
+    color: var(--type-color-normal);
+}
+
+.grass {
+    background-color: var(--type-background-grass);
+    color: var(--type-color-grass);
+}
+
+.fire {
+    background-color: var(--type-background-fire);
+    color: var(--type-color-fire);
 }
