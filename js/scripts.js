@@ -27,8 +27,8 @@ let pokemonRepository = (function() {
         return pokemonList;
     }
 
-    function loadDetails(pokemon) {
-        let url = pokemon.detailsURL;
+    function loadDetails(item) {
+        let url = item.detailsURL;
         
         return fetch(url)
         .then(function (response){
@@ -36,15 +36,15 @@ let pokemonRepository = (function() {
             return response.json();
         }).then(function (details) {
             //TODO:  Don't modify the parameter, but return an array and modify where called
-            pokemon.imageURL = details.sprites.front_default;
-            pokemon.height = details.height;
-            pokemon.types = details.types;
-            pokemon.id = details.id;
+            item.imageURL = details.sprites.front_default;
+            item.height = details.height;
+            item.types = details.types;
+            item.id = details.id;
         }).catch(function (error) {
             console.error(error);
         })
     }
-
+dfdfgdsfg
     function loadList() {
         return fetch(apiURL)
         .then(function (response) {
@@ -98,6 +98,8 @@ let pokemonRepository = (function() {
         }).catch(function(error)
         {
             console.error(error)
+        }).finally(function(){
+            console.log(pokemon);
         })
     }
 
@@ -124,4 +126,7 @@ pokemonRepository.loadList()
 }).catch(function(error)
 {
     console.error(error);
+}).finally(function(){
+    console.log(pokemonRepository.getAll()[0]);
 });
+
