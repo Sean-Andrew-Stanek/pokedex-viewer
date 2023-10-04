@@ -1,68 +1,127 @@
 
-let pokemonRepository = function() {
-    let pokemonList = [{
-        name: 'Bulbasaur',
-        type: ['Grass', 'Poison'],
-        size: 1
-    },
-    {
-        name: 'Ivysaur',
-        type: ['Grass', 'Poison'],
-        size: 2
-    },
-    {
-        name: 'Venusaur',
-        type: ['Grass', 'Poison'],
-        size: 3
-    },
-    {
-        name: 'Eevee',
-        type: ['Normal',''],
-        size: 1
-    }];
+let pokemonRepository = (function() {
+    
+    let pokemonList = [];
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-    return{
-        add: function(pokemon) {
+    //style.css button types  TODO:  Add all types
+    let implementedTypes = ['normal', 'fire', 'water', 'grass'];
+
+    //This will later interact with the main screen
+    function showDetails(pokemon) {
+        console.log(pokemon.id);
+    }
+    
+    function add(pokemon){
+        if (
+            typeof pokemon === 'object' &&
+            'name' in pokemon
+        ) {
             pokemonList.push(pokemon);
-        },
-        getAll: function() {
-            return pokemonList;
-        },
-        addListItem: function(pokemon) {
-            // Create a list item    
-            let listItem = document.createElement('div');
+        } else {
+            console.log('pokemon formatting error');
+        }
+    }
 
-            let button = document.createElement('button');
-            button.innerText = pokemon.name;
-            
-            //TODO:  Add style for all types
-            button.classList.add(pokemon.type[0].toLowerCase());
+    function getAll(){
+        return pokemonList;
+    }
+
+    function loadDetails(pokemon) {
+        let url = pokemon.detailsURL;
+        
+        return fetch(url)
+        .then(function (response){
+            //return JSON to next function
+            return response.json();
+        }).then(function (details) {
+            //TODO:  Don't modify the parameter, but return an array and modify where called
+            pokemon.imageURL = details.sprites.front_default;
+            pokemon.height = details.height;
+            pokemon.types = details.types;
+            pokemon.id = details.id;
+        }).catch(function (error) {
+            console.error(error);
+        })
+    }
+
+    function loadList() {
+        return fetch(apiURL)
+        .then(function (response) {
+            //send the json to next function
+            return response.json();
+        }).then(function (json) {
+            json.results.forEach(function(item) {
+                let pokemon = {
+                    //Button display name; capitalized the way it should be.
+                    name: (item.name.slice(0,1)).toUpperCase()+item.name.slice(1),
+                    //Where we find more data
+                    detailsURL: item.url
+                };
+                add(pokemon);
+            });            
+        }).catch(function(error)
+        {
+            console.error(error);
+        })
+    }
+
+    function addListItem(pokemon) {
+        // Create a list item    
+        let listItem = document.createElement('div');
+
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+        
+        /* console.log(pokemon); */
+
+        //I need both the ID and the color for the buttons / order, so we are loading the data now.
+        //This causes delay, but later, we can hide the delay through visual trickery.
+        loadDetails(pokemon)
+        .then(function()
+        {    
+            /* console.log(pokemon); */
+            //If the type colors for buttons have been added in style.css, give the type as a class
+            //otherwise, give it default colors
+            let pokemonType = pokemon.types[0].type.name.toLowerCase();
+            if(implementedTypes.includes(pokemonType))
+                button.classList.add(pokemonType);
+            else
+                button.classList.add('default-type')
+
             button.classList.add('pokemon-button');
-            button.addEventListener('click', function() {pokemonRepository.showDetails(pokemon)});
-
+            button.addEventListener('click', function() {
+                pokemonRepository.showDetails(pokemon);
+            });
             listItem.appendChild(button);
             selectablePokemonList.appendChild(listItem);
-        },
-        showDetails: function(pokemon) {
-            console.log(pokemon);
-        }
+        }).catch(function(error)
+        {
+            console.error(error)
+        })
+    }
 
+
+    return {
+        add: add,
+        getAll: getAll,
+        loadList: loadList,
+        addListItem: addListItem,
+        showDetails: showDetails,
     };
-}();
-
-
-//Example of adding a new object
-pokemonRepository.add({name: 'Charmander', type: ['Fire',''], size: 1});
+})();
 
 // Left side "button container"
 let selectablePokemonList = document.querySelector('.selectable-pokemon-list');
 
 //Create buttons for the repository
-pokemonRepository.getAll().forEach(function(pokemon)
+pokemonRepository.loadList()
+.then(function(){
+    pokemonRepository.getAll().forEach(function(pokemon)
+    {
+        pokemonRepository.addListItem(pokemon);
+    });
+}).catch(function(error)
 {
-    pokemonRepository.addListItem(pokemon);
-
+    console.error(error);
 });
-
-// Shorthand, but compatability issues
-// pokemonRepository.getAll().forEach(pokemon => pokemonRepository.addListItem(pokemon))

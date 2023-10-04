@@ -7,10 +7,12 @@
     --type-color-water: rgba(0, 0, 0, 1);
     --type-color-fire: rgba(0, 0, 0, 1);
     --type-color-grass: rgba(0, 0, 0, 1);
+    --type-color-default: rgba(0, 0, 0, 1);
     --type-background-water: rgba(0, 150, 200, 1);
     --type-background-normal: rgba(170, 80, 30, 1);
     --type-background-fire: rgba(255, 0, 0, 1);
-    --type-background-grass: rgba(25, 220, 25);
+    --type-background-grass: rgba(25, 220, 25, 1);
+    --type-background-default: rgba(250, 100, 100, 1);
 }
 
 body {
@@ -48,6 +50,11 @@ h1 {
     width: 90%;
     margin: 2px;
     margin-left: 5%;
+}
+
+.default-type {
+    background-color: var(--type-background-default);
+    color: var(--type-color-default);
 }
 
 .water {
