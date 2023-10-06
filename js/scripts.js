@@ -2,7 +2,7 @@
 let pokemonRepository = (function() {
     
     let pokemonList = [];
-    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=50';
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=56';
 
     //style.css button types  TODO:  Add all types
     let implementedTypes = ['normal', 'fire', 'water', 'grass'];
@@ -44,6 +44,7 @@ let pokemonRepository = (function() {
         }
     }
 
+
     async function loadList() {
         //Get stream from URL
         try {
@@ -65,10 +66,9 @@ let pokemonRepository = (function() {
             for(let i = 0; i<pokemonRepository.getAll().length; i++)
                 pokePromises.push(loadDetails(pokemonRepository.getAll()[i]));
             
-            console.log("pokePromises length:" + pokePromises);
-
             await Promise.all(pokePromises);
-            console.log("finished");
+            console.log(pokemonList);
+
 
 
         } catch (error) {
@@ -77,15 +77,12 @@ let pokemonRepository = (function() {
     }
 
     function addListItem(pokemon) {
-        // Left side "button container"
+        // Get the container for all the buttons
         let selectablePokemonList = document.querySelector('.selectable-pokemon-list');
 
-        // Create a list item    
-        let listItem = document.createElement('div');
+        // Create the button    
+        let button = document.createElement('div');
 
-        let button = document.createElement('button');
-        button.innerText = pokemon.name;
-        
         //If the type colors for buttons have been added in style.css, give the type as a class
         //otherwise, give it default colors
         let pokemonType = pokemon.types[0].type.name.toLowerCase();
@@ -98,8 +95,20 @@ let pokemonRepository = (function() {
         button.addEventListener('click', function() {
             pokemonRepository.showDetails(pokemon);
         });
-        listItem.appendChild(button);
-        selectablePokemonList.appendChild(listItem);
+
+        //Create Button
+        let pokemonImage = new Image();
+        pokemonImage.src = pokemon.imageURL;
+        pokemonImage.classList.add('pokemon-image')
+       
+                
+        let pokemonLabel = document.createElement('p');
+        pokemonLabel.classList = 'pokemon-label';
+        pokemonLabel.innerHTML = pokemon.name;
+
+        button.appendChild(pokemonImage);
+        button.appendChild(pokemonLabel)
+        selectablePokemonList.appendChild(button);
     }
 
 
