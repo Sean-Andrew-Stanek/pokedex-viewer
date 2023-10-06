@@ -16,15 +16,11 @@ let pokemonRepository = (function() {
         if (
             typeof pokemon === 'object' &&
             'name' in pokemon &&
-            'detailsURL' in pokemon &&
-            'imageURL' in pokemon &&
-            'height' in pokemon &&
-            'types' in pokemon &&
-            'id' in pokemon
+            'detailsURL' in pokemon
         ){
             pokemonList.push(pokemon);
         } else {
-            console.log('pokemon formatting error');
+            console.log('pokemon formatting error: ' + pokemon);
         }
     }
 
@@ -44,7 +40,7 @@ let pokemonRepository = (function() {
             item.types = details.types;
             item.id = details.id;
         } catch (error) {
-            console.error(error);
+            console.console("Load Details didn't work: " + error);
         }
     }
 
@@ -61,11 +57,22 @@ let pokemonRepository = (function() {
                     //Where we find more data
                     detailsURL: item.url
                 };
-                await loadDetails(pokemon);                
                 add(pokemon);
             });
+            
+            let pokePromises = [];
+            
+            for(let i = 0; i<pokemonRepository.getAll().length; i++)
+                pokePromises.push(loadDetails(pokemonRepository.getAll()[i]));
+            
+            console.log("pokePromises length:" + pokePromises);
+
+            await Promise.all(pokePromises);
+            console.log("finished");
+
+
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     }
 
@@ -109,12 +116,15 @@ async function createButtons(){
     await pokemonRepository.loadList();
     
     /*****   Look here  *****/
+/*     console.log('Length: ' + pokemonRepository.getAll().length);
     console.log(pokemonRepository.getAll());
+    console.log('This is an array: ' + Array.isArray(pokemonRepository.getAll())); */
     pokemonRepository.getAll().forEach(function(pokemon)
     {
-        console.log("THIS DOESN'T FIRE");
+/*         console.log("THIS DOESN'T FIRE"); */
         pokemonRepository.addListItem(pokemon);
-    });
+    });   
+    
 }
 
 createButtons();
