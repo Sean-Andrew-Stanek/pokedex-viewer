@@ -3,19 +3,49 @@
 }
 
 :root {
-    --type-color-normal: rgba(255, 255, 255, 1);
-    --type-color-water: rgba(0, 0, 0, 1);
-    --type-color-fire: rgba(0, 0, 0, 1);
-    --type-color-grass: rgba(0, 0, 0, 1);
-    --type-color-default: rgba(0, 0, 0, 1);
-    --type-background-water: rgba(0, 150, 200, 0.5);
-    --type-background-normal: rgba(170, 80, 30, 0.5);
-    --type-background-fire: rgba(255, 0, 0, 0.7);
-    --type-background-grass: rgba(25, 220, 25, 0.5);
-    --type-background-default: rgba(250, 100, 100, 0.5);
+
+    --type-color-water: black;
+    --type-color-normal: black;
+    --type-color-fire: black;
+    --type-color-grass: black;
+    --type-color-default: black;
+    --type-color-electric: black;
+    --type-color-ice: black;
+    --type-color-fighting: black;
+    --type-color-poison: black;
+    --type-color-ground: black;
+    --type-color-flying: black;
+    --type-color-psychic: black;
+    --type-color-bug: black;
+    --type-color-rock: black;
+    --type-color-ghost: black;
+    --type-color-dragon: black;
+    --type-color-dark: black;
+    --type-color-steel: black;
+    --type-color-fairy: black;
+    --type-background-water: rgba(99, 144, 240, 0.5);
+    --type-background-normal: rgba(168, 167, 122, 0.5);
+    --type-background-fire: rgba(238, 129, 48, 0.7);
+    --type-background-grass: rgba(122, 199, 76, 0.5);
+    --type-background-default: rgba(29, 26, 26, 0.5);
+    --type-background-electric: rgba(252, 201, 0, 0.5);
+    --type-background-ice: rgba(150, 217, 214, 0.5);
+    --type-background-fighting: rgba(194, 46, 40, 0.5);
+    --type-background-poison: rgba(163, 62, 161, 0.5);
+    --type-background-ground: rgba(226, 191, 101, 0.5);
+    --type-background-flying: rgba(169, 143, 243, 0.5);
+    --type-background-psychic: rgba(249, 85, 135, 0.5);
+    --type-background-bug: rgba(166, 185, 26, 0.5);
+    --type-background-rock: rgba(182, 161, 54, 0.5);
+    --type-background-ghost: rgba(115, 87, 151, 0.5);
+    --type-background-dragon: rgba(111, 53, 252, 0.5);
+    --type-background-dark: rgba(112, 87, 70, 0.5);
+    --type-background-steel: rgba(183, 183, 206, 0.5);
+    --type-background-fairy: rgba(183, 183, 206, 0.5);
     --grid-border-color: rgba(255, 0, 0, 1);
     --darken-background: rgba(0, 0, 0, 0.5);
-    --lighten-background: rgba(255, 255, 255, 0.8);
+    --lighten-background: rgba(255, 255, 255, 0.6);
+    --lighten-background-heavy: rgba(255, 255, 255, 0.7);
 }
 
 body {
@@ -29,6 +59,16 @@ body {
     display: flex;
     justify-content: center;
 
+}
+
+.poke-title {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.poke-title img {
+    width: 50%;
 }
 
 /* MODAL */ 
@@ -54,7 +94,6 @@ body {
 
     /* center modal */
     display: grid;
-    text-align: center;
 }
 
 .modal {
@@ -66,8 +105,10 @@ body {
     left: 10vw;
     width: 80vw;
 
+    border: 5px black solid;
+
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 0.5fr;
     
 }
@@ -75,14 +116,87 @@ body {
 .modal-image {
     grid-row: 1 / 4;
     grid-column: 1 / 2;
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.modal-image img {
+
+    border: black 5px double;
+    width: 80%;
+    max-width: 400px;
+    margin: 5px;
+
+    background-color: var(--lighten-background);
+
 }
 
 .modal-label {
     grid-column: 2 / 3;
+    display: grid;
+
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+
+    margin: 5px;
+    height: 90%;
+
+    align-items: center;
 }
+
+.modal-label img {
+    width: 100%;
+    opacity: 80%;
+    /* height:100%; */
+}
+
+.modal-label-text {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    display: flow;
+    margin: auto 5px;
+
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+
+    opacity: 100%;
+    z-index: 3;
+
+}
+
+
+.modal-label img {
+    display: flow;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    
+}
+
+
+
+/* Modal Data */
+
 
 .modal-data {
     grid-column: 3 / 4;
+
+    display: grid;
+    text-align: center;
+    align-items: center;
+    
+    margin: 5px;
+
+    height: 90%;
+    border: 5px black solid;
+
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+    background-color: var(--lighten-background);
 }
 
 .modal-close {
@@ -90,16 +204,13 @@ body {
     grid-row: 4 / 5;
 }
 
-
-
-
 /*  BUTTONS */
 /* button list + title */
 .pokemon-list-wrapper {
     display: inline-flex;
     flex-direction: column;
     align-content: center;
-    margin-top: 200px;
+    margin-top: 10px;
     width: 80vw;
     min-height: 100vh;
 }
@@ -135,7 +246,7 @@ h1 {
     width:100px;
 
     border: var(--grid-border-color) 3px double;
-    background-color: var(--lighten-background);
+    background-color: var(--lighten-background-heavy);
 }
 
 .pokemon-button:hover {
@@ -155,6 +266,7 @@ h1 {
 /* pokemon label */
 .pokemon-label{
     font-size: 15px;
+    font-weight: 700;
     text-align: center;
     user-select: none;
     margin: 0;
@@ -185,4 +297,74 @@ h1 {
 .fire {
     background-color: var(--type-background-fire);
     color: var(--type-color-fire);
+}
+
+.electric {
+    background-color: var(--type-background-electric);
+    color: var(--type-color-electric);
+}
+
+.ice {
+    background-color: var(--type-background-ice);
+    color: var(--type-color-ice);
+}
+
+.fighting {
+    background-color: var(--type-background-fighting);
+    color: var(--type-color-fighting);
+}
+
+.poison {
+    background-color: var(--type-background-poison);
+    color: var(--type-color-poison);
+}
+
+.ground {
+    background-color: var(--type-background-ground);
+    color: var(--type-color-ground);
+}
+
+.flying {
+    background-color: var(--type-background-flying);
+    color: var(--type-color-flying);
+}
+
+.psychic {
+    background-color: var(--type-background-psychic);
+    color: var(--type-color-psychic);
+}
+
+.bug {
+    background-color: var(--type-background-bug);
+    color: var(--type-color-bug);
+}
+
+.rock {
+    background-color: var(--type-background-rock);
+    color: var(--type-color-rock);
+}
+
+.ghost {
+    background-color: var(--type-background-ghost);
+    color: var(--type-color-ghost);
+}
+
+.dragon {
+    background-color: var(--type-background-dragon);
+    color: var(--type-color-dragon);
+}
+
+.dark {
+    background-color: var(--type-background-dark);
+    color: var(--type-color-dark);
+}
+
+.steel {
+    background-color: var(--type-background-steel);
+    color: var(--type-color-steel);
+}
+
+.fairy {
+    background-color: var(--type-background-fairy);
+    color: var(--type-color-fairy);
 }

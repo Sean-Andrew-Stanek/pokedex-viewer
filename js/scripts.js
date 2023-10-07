@@ -1,7 +1,6 @@
 let modalManager = (function(){
     
     let modalContainer = document.querySelector('#modal-container');
-    let modalCenterStage = document.querySelector('#modal');
 
     function showModal(pokemon) {
         
@@ -10,11 +9,70 @@ let modalManager = (function(){
         let modal = document.createElement('div');
         modal.classList.add('modal');
 
-        let labels = [];
-        let details = [];
-        let image = new Image(pokemon.imageURL);
+    //Pokemon Image
+        let imageWrapper = document.createElement('div');
+        let modalImage = new Image();
+        modalImage.src = pokemon.imageURL;
 
-        //Add new modal content
+        //Set background color based on type
+        let pokemonType = pokemon.types[0].type.name.toLowerCase();
+        modal.classList.add(pokemonType);
+
+        imageWrapper.classList.add('modal-image');
+        imageWrapper.appendChild(modalImage);
+
+    //Pokemon Details
+        let pokeProperties = ['name', 'id', 'types']
+        let pokePropertiesUI = ['Pokemon Name:', 'National ID:', 'Types:'];
+
+        let labelBackground = '../images/modal_label.png';
+
+        for(let i = 0; i < pokeProperties.length; i++)
+        {
+        // LABEL
+            let nextLabel = document.createElement('div');
+            let nextLabelImage = new Image();
+            nextLabelImage.src = labelBackground;
+            let nextLabelText = document.createElement('p');
+            nextLabelText.innerHTML = pokePropertiesUI[i];
+            //Sets the text
+
+
+            //All Style for the details flow from here to children
+            nextLabel.classList.add('modal-label');
+
+            nextLabelText.classList.add('modal-label-text');
+
+            //Put label together
+            nextLabel.appendChild(nextLabelImage);
+            nextLabel.appendChild(nextLabelText);
+
+        //DETAILS
+            let nextDetails = document.createElement('div');
+
+            //Types need to be formatted differently
+            if(pokeProperties[i]!='types')
+                nextDetails.innerHTML = pokemon[pokeProperties[i]];
+            else{
+                console.log(pokemon[pokeProperties[i]]);
+                nextDetails.innerHTML = pokemon[pokeProperties[i]][0].type.name;
+                if(pokemon[pokeProperties[i]].length>1)
+                    nextDetails.innerHTML += ' / ' + pokemon[pokeProperties[i]][1].type.name;
+
+            }            
+            //Style
+            nextDetails.classList.add('modal-data');
+            
+        // ADD IMAGE, LABEL AND DETAILS
+            modal.appendChild(nextLabel);
+            modal.appendChild(nextDetails);
+            
+        }
+
+        modal.appendChild(imageWrapper);
+
+
+        //Add Close Button
         let closeButtonElement = document.createElement('button');
         closeButtonElement.classList.add('modal-close');
         closeButtonElement.innerText = 'Close';
@@ -28,7 +86,6 @@ let modalManager = (function(){
     }
 
     function hideModal() {
-        console.log("ding!");
         modalContainer.classList.remove('is-visible');
     }
 
@@ -56,9 +113,6 @@ let pokemonRepository = (function() {
     
     let pokemonList = [];
     let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=50';
-
-    //style.css button types  TODO:  Add all types
-    let implementedTypes = ['normal', 'fire', 'water', 'grass'];
 
     //This will later interact with the main screen
     function showDetails(pokemon) {
@@ -149,10 +203,7 @@ let pokemonRepository = (function() {
         
         //Sets color to default if color isn't available
         let pokemonType = pokemon.types[0].type.name.toLowerCase();
-        if(implementedTypes.includes(pokemonType))
-            pokemonImage.classList.add(pokemonType);
-        else
-            pokemonImage.classList.add('default-type')
+        pokemonImage.classList.add(pokemonType);
 
         let pokemonLabel = document.createElement('p');
         pokemonLabel.classList = 'pokemon-label';
@@ -162,7 +213,6 @@ let pokemonRepository = (function() {
         button.appendChild(pokemonLabel)
         selectablePokemonList.appendChild(button);
     }
-
 
     return {
         getAll: getAll,
