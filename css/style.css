@@ -10,12 +10,12 @@
     --type-color-default: rgba(0, 0, 0, 1);
     --type-background-water: rgba(0, 150, 200, 0.5);
     --type-background-normal: rgba(170, 80, 30, 0.5);
-    --type-background-fire: rgba(255, 0, 0, 0.5);
+    --type-background-fire: rgba(255, 0, 0, 0.7);
     --type-background-grass: rgba(25, 220, 25, 0.5);
     --type-background-default: rgba(250, 100, 100, 0.5);
-    --grid-border-color: rgba(255, 0, 0, 0.8);
+    --grid-border-color: rgba(255, 0, 0, 1);
     --darken-background: rgba(0, 0, 0, 0.5);
-    --lighten-background: rgba(255, 255, 255, 0.5);
+    --lighten-background: rgba(255, 255, 255, 0.8);
 }
 
 body {
@@ -64,8 +64,30 @@ body {
     top: 15vh;
     height: 70vh;
     left: 10vw;
-    width: 80vh;
+    width: 80vw;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 0.5fr;
     
+}
+
+.modal-image {
+    grid-row: 1 / 4;
+    grid-column: 1 / 2;
+}
+
+.modal-label {
+    grid-column: 2 / 3;
+}
+
+.modal-data {
+    grid-column: 3 / 4;
+}
+
+.modal-close {
+    grid-column: 3 / 4;
+    grid-row: 4 / 5;
 }
 
 
@@ -112,12 +134,12 @@ h1 {
     align-items: center;
     width:100px;
 
-    border: var(--grid-border-color) 3px solid;
+    border: var(--grid-border-color) 3px double;
     background-color: var(--lighten-background);
 }
 
 .pokemon-button:hover {
-    border: black 3px solid;
+    border: black 3px double;
 }
 
 
