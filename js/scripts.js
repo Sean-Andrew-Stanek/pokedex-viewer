@@ -28,7 +28,7 @@ let modalManager = (function(){
     
     let modalContainer = document.querySelector('#modal-container');
 
-    function showModal(pokemon) {
+    /* function showModal(pokemon) {
         
         modalContainer.innerHTML = '';
 
@@ -83,7 +83,6 @@ let modalManager = (function(){
                 nextDetails.innerHTML = pokemon[pokeProperties[i]][0].type.name;
                 if(pokemon[pokeProperties[i]].length>1)
                     nextDetails.innerHTML += ' / ' + pokemon[pokeProperties[i]][1].type.name;
-
             }            
             //Style
             nextDetails.classList.add('modal-data');
@@ -111,37 +110,47 @@ let modalManager = (function(){
         modalContainer.appendChild(modal);
 
         modalContainer.classList.add('is-visible');
-    }
+    } */
 
-    function hideModal() {
-        modalContainer.classList.remove('is-visible');
+    function showModal(pokemon){
+        let modalBody = document.querySelector("#pokemon-details");
+        let modalTitle = document.querySelector("#pokemon-name");
+    
+        console.log(modalBody);
+
+        modalTitle.innerHTML = '';
+        modalBody.innerHTML = '';
+    
+        let nameElement = document.createElement('h1');
+        nameElement.innerHTML = pokemon.name;
+    
+        let imageElement = new Image();
+        imageElement.src = pokemon.imageURL;
+        imageElement.style.width = "50%";
+        imageElement.classList.add("modal-img");
+    
+        let typesElement = document.createElement('p');
+        console.log(pokemon.types);
+        typesElement.innerHTML = "type: " + pokemon.types[0].type.name;
+        if(pokemon.types.length>1)
+            typesElement.innerHTML += ' / ' + pokemon.types[1].type.name;
+    
+        modalTitle.append(nameElement);
+        modalBody.append(imageElement);
+        modalBody.append(typesElement);
     }
 
     function showLoading(){
-        let loadingContainer = document.querySelector('#loading-modal');
+        let loadingContainer = document.querySelector('#loading-screen');
 
         loadingContainer.classList.add("is-visible");
     }
 
     function hideLoading(){
-        let loadingContainer = document.querySelector('#loading-modal');
+        let loadingContainer = document.querySelector('#loading-screen');
 
         loadingContainer.classList.remove("is-visible");
     }
-
-    window.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape' && modalContainer.classList.contains('is-visible')){
-            hideModal();
-        }
-    });
-
-    modalContainer.addEventListener('click', (e) =>{
-        let target = e.target;
-        if(target === modalContainer) {
-            hideModal();
-        }
-
-    });
 
     return {
         showModal: showModal,
@@ -183,20 +192,12 @@ let pokemonRepository = (function() {
         try {
             const response = await fetch(url);
             const details = await response.json();
-            //TODO:  Don't modify the parameter, but return an array and modify where called
+            //TODO:  Make alternative for sprite and official artwork
             /* item.imageURL = details.sprites.front_default; */
             item.imageURL = details["sprites"]["other"]["official-artwork"]["front_default"];
             item.height = details.height;
             item.types = details.types;
             item.id = details.id;
-
-
- /*            //Some pokemon are improper
-
-            {
-                pokemonList.splice(pokemonList.indexOf(item),1);
-
-            } */
         } catch (error) {
             console.log("Load Details didn't work: " + error);
         }
@@ -241,16 +242,22 @@ let pokemonRepository = (function() {
         // Create the button    
         let button = document.createElement('button');
         button.classList.add('pokemon-button');
-        //listener
+        //Button - Listener
         button.addEventListener('click', function(){ 
             modalManager.showModal(pokemon);
         });
-        //Create Button
+
+        button.classList.add('btn');
+        button.setAttribute("data-bs-target", "#pokeDetailsModal")
+        button.setAttribute('data-bs-toggle','modal');
+
+        //Button - Image
         let pokemonImage = new Image();
         pokemonImage.src = pokemon.imageURL;
         pokemonImage.classList.add('pokemon-image')
+
+
        
-        
         //Sets color to default if color isn't available
         let pokemonType = pokemon.types[0].type.name.toLowerCase();
         pokemonImage.classList.add(pokemonType);
@@ -343,4 +350,6 @@ function createButtons() {
     });   
     
 };
+
+
 
