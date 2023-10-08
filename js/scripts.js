@@ -211,7 +211,7 @@ let pokemonRepository = (function() {
         let selectablePokemonList = document.querySelector('.selectable-pokemon-list');        
 
         // Create the button    
-        let button = document.createElement('div');
+        let button = document.createElement('button');
         button.classList.add('pokemon-button');
         //listener
         button.addEventListener('click', function(){ 
