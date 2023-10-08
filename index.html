@@ -37,78 +37,62 @@
         </span>
         <div class="container">
         <!-- Expandable Button -->
-        <button 
-            type="button" 
-            class="navbar-toggler" 
-            data-bs-toggle="collapse" 
-            data-target="#headerNav"
-            aria-label="Toggle Navigation"
-            aria-controls="headerNav"
-            aria-expanded="false"
-        >
-        <span class="navbar-toggler-icon"></span>
-        </button>
+            <button 
+                type="button" 
+                class="navbar-toggler" 
+                data-bs-toggle="collapse" 
+                data-target="#headerNav"
+                aria-label="Toggle Navigation"
+                aria-controls="headerNav"
+                aria-expanded="false"
+            >
+            <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!-- Expanded List -->
-        <div 
-            class="collapse navbar-collapse" 
-            id="headerNav">
-            <ul 
-                class="navbar-nav">
-                <li 
-                class="nav-item active">
-                    <a 
-                    class="nav-link" 
-                    href="#">
-                        Home
-                    </a>
-                </li>
-                <!-- Example of a dropdown -->
-                <li class="nav-item dropdown">
-                    <a 
-                        class="nav-link dropdown-toggle" 
-                        href="#"
-                        id="navbarDropdown"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Type
-                    </a>
-                    <ul
-                        class="dropdown-menu"
-                        aria-labelledby="navbarDropdown">
-                        <li>
-                            <a 
-                                href="#" 
-                                onclick="pokemonRepository.filterPokemon('water')"
-                                class="dropdown-item">
-                            Water
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#" 
-                                onclick="pokemonRepository.filterPokemon('fire')"
-                                class="dropdown-item">
-                            Fire
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Home Three
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <!-- Expanded List -->
+            <div 
+                class="collapse navbar-collapse" 
+                id="headerNav">
+<!-- Filter Navbar -->
+                <ul 
+                    class="navbar-nav">
+                    <li 
+                    class="nav-item active">
+                        <a 
+                        onclick="pokemonRepository.filterPokemon('none')" 
+                        class="nav-link" 
+                        href="#">
+                            No Filter
+                        </a>
+                    </li>
+                    <!-- Example of a dropdown -->
+                    <li class="nav-item dropdown">
+                        <a 
+                            class="nav-link dropdown-toggle" 
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Type
+                        </a>
+                        <ul
+                            class="dropdown-menu"
+                            aria-labelledby="navbarDropdown"
+                            id="filter-by-type">
+                            <!-- This will be filled in scripts.createDropdownOptions() -->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+<!-- Searchbar -->
             <form class="d-flex">
                 <input 
                     type="text" 
-                    class="form-control me-2">
+                    class="form-control me-2"
+                    id="search-input">
                 <button 
-                    type="submit" 
+                    onclick="pokemonRepository.filterPokemon('SEARCH_BY_INPUT')"
                     class="btn text-white bg-dark">
                     Search
                 </button>
@@ -129,7 +113,7 @@
     </main>
 
     <!-- Keep this order -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="js/promise-polyfill.js"></script>
     <script src="js/fetch-polyfill.js"></script>
     <script src="js/scripts.js"></script>

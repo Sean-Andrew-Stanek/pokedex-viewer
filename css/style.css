@@ -83,7 +83,8 @@ main {
 
 /* MODALS */ 
 
-#loading-modal{
+#loading-modal
+{
     display: none;
 }
 
@@ -313,6 +314,8 @@ h1 {
 
 .pokemon-image {
     box-sizing: border-box;
+    width: 100px;
+    height: 100px;
 }
 
 .pokemon-button:active img {

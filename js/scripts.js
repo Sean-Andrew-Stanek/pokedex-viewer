@@ -3,6 +3,26 @@ let pokemonTypeList = ['water', 'normal', 'fire','grass','default','electric',
     'dragon','dark','steel','fairy'];
 
 
+let createDropdownOptions = (function(){
+
+    let typeFilterRoot = document.querySelector("#filter-by-type");
+
+    //Adds options to the dropdown for filtering by type
+    for(let i = 0; i<pokemonTypeList.length; i++){
+        let anchor = document.createElement('a');
+        anchor.setAttribute('href', '#');
+        anchor.setAttribute('onclick', "pokemonRepository.filterPokemon('" + pokemonTypeList[i].slice(0,1) + pokemonTypeList[i].slice(1) + "')");
+        
+        anchor.classList.add('dropdown-item');
+        anchor.innerHTML = pokemonTypeList[i];
+
+        let listItem = document.createElement('li');
+        listItem.append(anchor);
+
+        typeFilterRoot.append(listItem);
+    }
+
+})();
 
 let modalManager = (function(){
     
@@ -135,7 +155,7 @@ let pokemonRepository = (function() {
     
     let pokemonList = [];
     let currentFilteredList = [];
-    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=500';
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=1000';
 
     //This will later interact with the main screen
     function showDetails(pokemon) {
@@ -146,7 +166,7 @@ let pokemonRepository = (function() {
         if (
             typeof pokemon === 'object' &&
             'name' in pokemon &&
-            'detailsURL' in pokemon
+            'detailsURL' in pokemon 
         ){
             pokemonList.push(pokemon);
         } else {
@@ -164,11 +184,19 @@ let pokemonRepository = (function() {
             const response = await fetch(url);
             const details = await response.json();
             //TODO:  Don't modify the parameter, but return an array and modify where called
-            let returnObject = {};
-            item.imageURL = details.sprites.front_default;
+            /* item.imageURL = details.sprites.front_default; */
+            item.imageURL = details["sprites"]["other"]["official-artwork"]["front_default"];
             item.height = details.height;
             item.types = details.types;
             item.id = details.id;
+
+
+ /*            //Some pokemon are improper
+
+            {
+                pokemonList.splice(pokemonList.indexOf(item),1);
+
+            } */
         } catch (error) {
             console.log("Load Details didn't work: " + error);
         }
@@ -215,8 +243,7 @@ let pokemonRepository = (function() {
         button.classList.add('pokemon-button');
         //listener
         button.addEventListener('click', function(){ 
-            filterPokemon('water');
-            /* modalManager.showModal(pokemon); */
+            modalManager.showModal(pokemon);
         });
         //Create Button
         let pokemonImage = new Image();
@@ -239,6 +266,13 @@ let pokemonRepository = (function() {
 
     function filterPokemon(filter)
     {
+        if(filter=='SEARCH_BY_INPUT')
+            filter=document.querySelector('#search-input').value;
+
+        if(filter=='')
+            return;
+
+        //Filter by Type
         if(pokemonTypeList.includes(filter)){
             currentFilteredList = [];
             pokemonList.forEach(function(pokemon){
@@ -254,11 +288,26 @@ let pokemonRepository = (function() {
                     }
                 }
             });
-            console.log("Filtered down to " + currentFilteredList.length + " pokemon.");
+            createButtons();
+            return;
+        //No Filter (default)
+        }else if (filter == 'none')
+        {
+            currentFilteredList = [];
+            currentFilteredList = pokemonList.slice();
+            createButtons();
+            return;
+        }else {
+            currentFilteredList = [];
+            pokemonList.forEach(function(pokemon){
+                if(pokemon.name.toLowerCase().includes(filter.toLowerCase()))
+                    currentFilteredList.push(pokemon)
+            });
             createButtons();
             return;
         }
-        console.log("Improper filter");
+
+        console.log("Improper filter: " + filter);
     }
 
     return {
@@ -294,3 +343,4 @@ function createButtons() {
     });   
     
 };
+
