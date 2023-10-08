@@ -3,9 +3,6 @@
 }
 
 :root {
-
-    --pokemon-button-size: 100px;
-
     --type-color-water: black;
     --type-color-normal: black;
     --type-color-fire: black;
@@ -158,8 +155,6 @@ h1 {
     display: flex;
     flex-flow: row wrap;
     justify-content: left;
-
-
 }
 
 /* Individual pokemon = button + label */
@@ -169,7 +164,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: var(--pokemon-button-size);
+    width: 70px;
 
     border: var(--grid-border-color) 3px double;
     background-color: var(--lighten-background-heavy);
@@ -182,14 +177,31 @@ h1 {
 
 .pokemon-image {
     box-sizing: border-box;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 }
 
 .pokemon-button:active img {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
 }
+
+@media (min-width: 768px){
+    .pokemon-button{
+        width: 100px;
+    }
+    .pokemon-image {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .pokemon-button:active img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+
 
 /* pokemon label */
 .pokemon-label{
