@@ -1,4 +1,4 @@
-let pokemonTypeList = ['water', 'normal', 'fire','grass','default','electric',
+let pokemonTypeList = ['water', 'normal', 'fire','grass', 'electric',
     'ice','fighting','poison','ground','flying','psychic','bug','rock','ghost',
     'dragon','dark','steel','fairy'];
 
@@ -27,90 +27,6 @@ let createDropdownOptions = (function(){
 let modalManager = (function(){
     
     let modalContainer = document.querySelector('#modal-container');
-
-    /* function showModal(pokemon) {
-        
-        modalContainer.innerHTML = '';
-
-        let modal = document.createElement('div');
-        modal.classList.add('modal');
-
-    //Pokemon Image
-        let imageWrapper = document.createElement('div');
-        let modalImage = new Image();
-        modalImage.src = pokemon.imageURL;
-
-        //Set background color based on type
-        let pokemonType = pokemon.types[0].type.name.toLowerCase();
-        modal.classList.add(pokemonType);
-
-        imageWrapper.classList.add('modal-image');
-        imageWrapper.appendChild(modalImage);
-
-    //Pokemon Details
-        let pokeProperties = ['name', 'id', 'types']
-        let pokePropertiesUI = ['Pokemon Name:', 'National ID:', 'Types:'];
-
-        let labelBackground = '../images/modal_label.png';
-
-        for(let i = 0; i < pokeProperties.length; i++)
-        {
-        // LABEL
-            let nextLabel = document.createElement('div');
-            let nextLabelImage = new Image();
-            nextLabelImage.src = labelBackground;
-            let nextLabelText = document.createElement('p');
-            nextLabelText.innerHTML = pokePropertiesUI[i];
-            //Sets the text
-
-
-            //All Style for the details flow from here to children
-            nextLabel.classList.add('modal-label');
-
-            nextLabelText.classList.add('modal-label-text');
-
-            //Put label together
-            nextLabel.appendChild(nextLabelImage);
-            nextLabel.appendChild(nextLabelText);
-
-        //DETAILS
-            let nextDetails = document.createElement('div');
-
-            //Types need to be formatted differently
-            if(pokeProperties[i]!='types')
-                nextDetails.innerHTML = pokemon[pokeProperties[i]];
-            else{
-                nextDetails.innerHTML = pokemon[pokeProperties[i]][0].type.name;
-                if(pokemon[pokeProperties[i]].length>1)
-                    nextDetails.innerHTML += ' / ' + pokemon[pokeProperties[i]][1].type.name;
-            }            
-            //Style
-            nextDetails.classList.add('modal-data');
-            
-        // ADD IMAGE, LABEL AND DETAILS
-            modal.appendChild(nextLabel);
-            modal.appendChild(nextDetails);
-            
-        }
-
-        modal.appendChild(imageWrapper);
-
-
-        //Add Close Button
-        let closeButtonElement = document.createElement('button');
-        closeButtonElement.classList.add('modal-close');
-        closeButtonElement.classList.add('btn');
-        closeButtonElement.classList.add('btn-primary');
-        closeButtonElement.ariaLabel = "Close the Modal"
-        closeButtonElement.innerText = 'Close';
-        closeButtonElement.addEventListener('click', hideModal);
-        
-
-        modal.appendChild(closeButtonElement);
-        modalContainer.appendChild(modal);
-
-        modalContainer.classList.add('is-visible');
-    } */
 
     function showModal(pokemon){
         let modalBody = document.querySelector("#pokemon-details");
@@ -251,11 +167,17 @@ let pokemonRepository = (function() {
         button.setAttribute("data-bs-target", "#pokeDetailsModal")
         button.setAttribute('data-bs-toggle','modal');
 
+        //Accessibility
+        button.ariaLabel = pokemon.name + " button"
+        
+
         //Button - Image
         let pokemonImage = new Image();
         pokemonImage.src = pokemon.imageURL;
         pokemonImage.classList.add('pokemon-image')
 
+        //Accessibility
+        pokemonImage.alt = "Image of " + pokemon.name;
 
        
         //Sets color to default if color isn't available
