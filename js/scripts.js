@@ -75,6 +75,9 @@ let modalManager = (function(){
         //Add Close Button
         let closeButtonElement = document.createElement('button');
         closeButtonElement.classList.add('modal-close');
+        closeButtonElement.classList.add('btn');
+        closeButtonElement.classList.add('btn-primary');
+        closeButtonElement.ariaLabel = "Close the Modal"
         closeButtonElement.innerText = 'Close';
         closeButtonElement.addEventListener('click', hideModal);
         
@@ -116,7 +119,7 @@ let pokemonRepository = (function() {
 
     //This will later interact with the main screen
     function showDetails(pokemon) {
-        console.log(pokemon.id);
+        console.log(pokemon);
     }
     
     function add(pokemon){
@@ -147,7 +150,7 @@ let pokemonRepository = (function() {
             item.types = details.types;
             item.id = details.id;
         } catch (error) {
-            console.console("Load Details didn't work: " + error);
+            console.log("Load Details didn't work: " + error);
         }
     }
 
@@ -174,9 +177,6 @@ let pokemonRepository = (function() {
                 pokePromises.push(loadDetails(pokemonRepository.getAll()[i]));
             
             await Promise.all(pokePromises);
-            console.log(pokemonList);
-
-
 
         } catch (error) {
             console.log(error);
