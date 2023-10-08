@@ -81,8 +81,56 @@ main {
 
 
 
-/* MODAL */ 
-#modal-container {
+/* MODALS */ 
+
+#loading-modal{
+    display: none;
+}
+
+#loading-modal.is-visible{
+    position: fixed;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* Show on top */
+    z-index: 999;
+
+    /* center modal */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 150px;
+    height: 150px;
+
+    top: 50%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -75px;
+
+    background-color: var(--lighten-background);
+
+    overflow: hidden;
+}
+
+#loading-modal img{
+    max-height: 100px;
+    max-width: 100px;
+
+    animation: rotatePokeBall 2s linear infinite;
+}
+
+@keyframes rotatePokeBall {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+#modal-container{
     display: none;
 }
 
@@ -110,10 +158,12 @@ main {
     background-color: var(--lighten-background);
 
     position: absolute;
-    top: 15vh;
-    height: 70vh;
     left: 10vw;
     width: 80vw;
+
+    top: 200px;
+    height: 600px;
+
 
     border: 5px black solid;
 
@@ -169,7 +219,7 @@ main {
     display: flow;
     margin: auto 5px;
 
-    font-size: 20px;
+    font-size: 2vw;
     font-weight: 600;
     color: black;
 
@@ -183,13 +233,12 @@ main {
     display: flow;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+
+    border: 5px black solid;
     
 }
 
-
-
 /* Modal Data */
-
 
 .modal-data {
     grid-column: 3 / 4;
@@ -203,7 +252,7 @@ main {
     height: 90%;
     border: 5px black solid;
 
-    font-size: 20px;
+    font-size: 2vw;
     font-weight: 600;
     color: black;
     background-color: var(--lighten-background);
@@ -224,8 +273,6 @@ main {
     width: 80vw;
     min-height: 100vh;
 }
-
-
 
 .pokemon-list-wrapper div h1{
     margin: 5;
