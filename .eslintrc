@@ -1,0 +1,12 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    //ADDED
+    "parserOptions": { "ecmaVersion": 8 },
+    "extends": ["eslint:recommended"],
+    "rules": {
+        "quotes": ["warn", "single"]
+    }
+}
