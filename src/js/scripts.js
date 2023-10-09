@@ -31,7 +31,7 @@ let createDropdownOptions = (function () {
         anchor.setAttribute(
             'onclick',
             "pokemonRepository.filterPokemon('" +
-                pokemonTypeList[i].slice(0, 1).toUpperCase() +
+                pokemonTypeList[i].slice(0, 1) +
                 pokemonTypeList[i].slice(1) +
                 "')"
         );
@@ -56,8 +56,6 @@ let modalManager = (function () {
     function showModal(pokemon) {
         let modalBody = document.querySelector('#pokemon-details');
         let modalTitle = document.querySelector('#pokemon-name');
-
-        console.log(modalBody);
 
         /* Clear Previous HTML */
         modalTitle.innerHTML = '';

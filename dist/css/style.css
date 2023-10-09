@@ -1,0 +1,323 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background: url('../images/poke_background.png') center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+main {
+    padding-top: 160px;
+    font-family: 'Quicksand', sans-serif;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+/* NAV BAR */
+.nav-link {
+    font-size: 1.5rem !important;
+}
+
+/* MODALS */
+
+#loading-screen {
+    display: none;
+}
+
+#loading-screen.is-visible {
+    position: fixed;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    /* Show on top */
+    z-index: 999;
+
+    /* center modal */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -75px;
+    background-color: rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+}
+
+#loading-screen img {
+    max-height: 100px;
+    max-width: 100px;
+    -webkit-animation: rotatePokeBall 2s linear infinite;
+    animation: rotatePokeBall 2s linear infinite;
+}
+
+@-webkit-keyframes rotatePokeBall {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotatePokeBall {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/*  BUTTONS */
+
+/* button list + title */
+.pokemon-list-wrapper {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    margin-top: 10px;
+    width: 80vw;
+    min-height: 100vh;
+}
+
+.pokemon-list-wrapper div h1 {
+    margin: 5;
+    padding: 0;
+}
+
+/* Contains all buttons */
+.selectable-pokemon-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-pack: left;
+    -ms-flex-pack: left;
+    justify-content: left;
+}
+
+/* Individual pokemon = button + label */
+.pokemon-button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 70px;
+    border: rgba(255, 0, 0, 1) 3px double;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.pokemon-button:hover {
+    border: black 3px double;
+}
+
+.pokemon-image {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 60px;
+    height: 60px;
+}
+
+.pokemon-button:active img {
+    width: 70px;
+    height: 70px;
+}
+
+/* Makes all buttons smaller on smaller screens */
+@media (min-width: 768px) {
+    .pokemon-button {
+        width: 100px;
+    }
+
+    .pokemon-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .pokemon-button:active img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* pokemon label */
+.pokemon-label {
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Colors for type */
+.default-type {
+    background-color: rgba(29, 26, 26, 0.5);
+    color: black;
+}
+
+.water {
+    background-color: rgba(99, 144, 240, 0.5);
+    color: black;
+}
+
+.normal {
+    background-color: rgba(168, 167, 122, 0.5);
+    color: black;
+}
+
+.grass {
+    background-color: rgba(122, 199, 76, 0.5);
+    color: black;
+}
+
+.fire {
+    background-color: rgba(238, 129, 48, 0.7);
+    color: black;
+}
+
+.electric {
+    background-color: rgba(252, 201, 0, 0.5);
+    color: black;
+}
+
+.ice {
+    background-color: rgba(150, 217, 214, 0.5);
+    color: black;
+}
+
+.fighting {
+    background-color: rgba(194, 46, 40, 0.5);
+    color: black;
+}
+
+.poison {
+    background-color: rgba(163, 62, 161, 0.5);
+    color: black;
+}
+
+.ground {
+    background-color: rgba(226, 191, 101, 0.5);
+    color: black;
+}
+
+.flying {
+    background-color: rgba(169, 143, 243, 0.5);
+    color: black;
+}
+
+.psychic {
+    background-color: rgba(249, 85, 135, 0.5);
+    color: black;
+}
+
+.bug {
+    background-color: rgba(166, 185, 26, 0.5);
+    color: black;
+}
+
+.rock {
+    background-color: rgba(182, 161, 54, 0.5);
+    color: black;
+}
+
+.ghost {
+    background-color: rgba(115, 87, 151, 0.5);
+    color: black;
+}
+
+.dragon {
+    background-color: rgba(111, 53, 252, 0.5);
+    color: black;
+}
+
+.dark {
+    background-color: rgba(112, 87, 70, 0.5);
+    color: black;
+}
+
+.steel {
+    background-color: rgba(183, 183, 206, 0.5);
+    color: black;
+}
+
+.fairy {
+    background-color: rgba(183, 183, 206, 0.5);
+    color: black;
+}
+.example {
+    display: -ms-grid;
+    display: grid;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(white),
+        to(black)
+    );
+    background: -o-linear-gradient(top, white, black);
+    background: linear-gradient(to bottom, white, black);
+}
