@@ -228,7 +228,7 @@ let pokemonRepository = (function () {
         if (filter == 'SEARCH_BY_INPUT')
             filter = document.querySelector('#search-input').value;
 
-        if (filter == '') return;
+        if (filter == '') return false;
 
         //Filter by Type
         if (pokemonTypeList.includes(filter)) {
@@ -247,13 +247,13 @@ let pokemonRepository = (function () {
                 }
             });
             createButtons();
-            return;
+            return false;
             //No Filter (default)
         } else if (filter == 'none') {
             currentFilteredList = [];
             currentFilteredList = pokemonList.slice();
             createButtons();
-            return;
+            return false;
         } else {
             currentFilteredList = [];
             pokemonList.forEach(function (pokemon) {
@@ -261,7 +261,7 @@ let pokemonRepository = (function () {
                     currentFilteredList.push(pokemon);
             });
             createButtons();
-            return;
+            return false;
         }
     }
 
@@ -279,7 +279,7 @@ let pokemonRepository = (function () {
     - Creates initial buttons with no filter */
 // eslint-disable-next-line no-unused-vars
 let initializeData = (async function () {
-    console.log("ding");
+    console.log("Data Loaded");
     modalManager.showLoading();
     await pokemonRepository.loadList();
     modalManager.hideLoading();
