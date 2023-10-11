@@ -224,6 +224,7 @@ let pokemonRepository = (function () {
 
     function filterPokemon(filter) {
         /* Searchbar flag */
+        console.log("filtering by: " + filter);
         if (filter == 'SEARCH_BY_INPUT')
             filter = document.querySelector('#search-input').value;
 
@@ -278,6 +279,7 @@ let pokemonRepository = (function () {
     - Creates initial buttons with no filter */
 // eslint-disable-next-line no-unused-vars
 let initializeData = (async function () {
+    console.log("ding");
     modalManager.showLoading();
     await pokemonRepository.loadList();
     modalManager.hideLoading();
