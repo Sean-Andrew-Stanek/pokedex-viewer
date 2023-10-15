@@ -1,4 +1,4 @@
-let pokemonTypeList = [
+const pokemonTypeList = [
     'water',
     'normal',
     'fire',
@@ -67,6 +67,7 @@ let modalManager = (function () {
         /* Adds Image */
         let imageElement = new Image();
         imageElement.src = pokemon.imageURL;
+        imageElement.alt = "Picture of " + pokemon.name;
         imageElement.style.width = '50%';
         imageElement.classList.add('modal-img');
 
@@ -224,9 +225,11 @@ let pokemonRepository = (function () {
 
     function filterPokemon(filter) {
         /* Searchbar flag */
-        console.log("filtering by: " + filter);
+
         if (filter == 'SEARCH_BY_INPUT')
             filter = document.querySelector('#search-input').value;
+
+        console.log("filtering by: " + filter);
 
         if (filter == '') return false;
 
