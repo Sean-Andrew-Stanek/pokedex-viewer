@@ -1,3 +1,5 @@
+
+
 const pokemonTypeList = [
     'water',
     'normal',
@@ -18,6 +20,10 @@ const pokemonTypeList = [
     'steel',
     'fairy',
 ];
+
+document.getElementById("submit-button").addEventListener("click", function(event){
+    event.preventDefault();
+});
 
 /* Adds options to the NavMenu->Types */
 // eslint-disable-next-line no-unused-vars
@@ -103,10 +109,10 @@ let modalManager = (function () {
     };
 })();
 
-let pokemonRepository = (function () {
+let pokemonRepository = (function (typeList = []) {
     let pokemonList = [];
     let currentFilteredList = [];
-    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=1000';
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=100';
 
     function add(pokemon) {
         if (
@@ -131,11 +137,11 @@ let pokemonRepository = (function () {
             const response = await fetch(url);
             const details = await response.json();
             //TODO:  Make alternative for sprite and official artwork
-            /* item.imageURL = details.sprites.front_default; */
-            item.imageURL =
+            item.imageURL = details.sprites.front_default;
+            /* item.imageURL =
                 details['sprites']['other']['official-artwork'][
                     'front_default'
-                ];
+                ]; */
             item.types = details.types;
             item.id = details.id;
         } catch (error) {
@@ -183,7 +189,7 @@ let pokemonRepository = (function () {
         );
 
         // Create the button
-        let button = document.createElement('button');
+        let button = document.createElement('div');
         button.classList.add('pokemon-button');
         //Button - Listener
         button.addEventListener('click', function () {
@@ -235,6 +241,7 @@ let pokemonRepository = (function () {
 
         //Filter by Type
         if (pokemonTypeList.includes(filter)) {
+            
             currentFilteredList = [];
             pokemonList.forEach(function (pokemon) {
                 if (pokemon.types.length == 1) {
@@ -250,21 +257,19 @@ let pokemonRepository = (function () {
                 }
             });
             createButtons();
-            return false;
             //No Filter (default)
         } else if (filter == 'none') {
             currentFilteredList = [];
             currentFilteredList = pokemonList.slice();
             createButtons();
-            return false;
         } else {
             currentFilteredList = [];
             pokemonList.forEach(function (pokemon) {
                 if (pokemon.name.toLowerCase().includes(filter.toLowerCase()))
                     currentFilteredList.push(pokemon);
             });
+
             createButtons();
-            return false;
         }
     }
 
@@ -274,7 +279,7 @@ let pokemonRepository = (function () {
         addListItem: addListItem,
         filterPokemon: filterPokemon,
     };
-})();
+})(pokemonTypeList);
 
 /* The go button
     - Shows / Hides Loading Modal
@@ -282,9 +287,9 @@ let pokemonRepository = (function () {
     - Creates initial buttons with no filter */
 // eslint-disable-next-line no-unused-vars
 let initializeData = (async function () {
-    console.log("Data Loaded");
     modalManager.showLoading();
     await pokemonRepository.loadList();
+    console.log("Data Loaded");
     modalManager.hideLoading();
     createButtons();
 })();
