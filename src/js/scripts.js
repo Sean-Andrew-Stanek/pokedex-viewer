@@ -70,13 +70,6 @@ let modalManager = (function () {
         let nameElement = document.createElement('h1');
         nameElement.innerHTML = pokemon.name;
 
-        /* Adds Image */
-        let imageElement = new Image();
-        imageElement.src = pokemon.imageURL;
-        imageElement.alt = "Picture of " + pokemon.name;
-        imageElement.style.width = '50%';
-        imageElement.classList.add('modal-img');
-
         /* Adds current details */
         let typesElement = document.createElement('p');
         typesElement.innerHTML = 'type: ' + pokemon.types[0].type.name;
@@ -85,8 +78,21 @@ let modalManager = (function () {
         let idElement = document.createElement('p');
         idElement.innerHTML = 'National Pokedex ID: ' + pokemon.id;
 
+        /* Adds Modal Image Holder */
+        let imageHolder = document.createElement('div');
+        imageHolder.classList.add(pokemon.types[0].type.name.toLowerCase());
+        imageHolder.classList.add('modal-image-holder');
+
+        /* Adds Modal Image */
+        let imageElement = new Image();
+        imageElement.src = pokemon.imageURL;
+        imageElement.alt = "Picture of " + pokemon.name;
+        imageElement.classList.add('modal-image');
+        imageHolder.appendChild(imageElement);
+
+
         modalTitle.append(nameElement);
-        modalBody.append(imageElement);
+        modalBody.append(imageHolder);
         modalBody.append(typesElement);
     }
 
