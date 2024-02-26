@@ -70,19 +70,6 @@ let modalManager = (function () {
         let nameElement = document.createElement('h1');
         nameElement.innerHTML = pokemon.name;
 
-        /* Adds current details */
-        let detailsElement = document.createElement('div');
-
-        let typesElement = document.createElement('p');
-        typesElement.innerHTML = 'type: ' + pokemon.types[0].type.name;
-        if (pokemon.types.length > 1)
-            typesElement.innerHTML += ' / ' + pokemon.types[1].type.name;
-        
-        let idElement = document.createElement('p');
-        idElement.innerHTML = 'National Pokedex ID: ' + pokemon.id;
-
-        detailsElement.append(typesElement);
-        detailsElement.append(idElement);
         
         /* Adds Modal Image Holder */
         let imageHolder = document.createElement('div');
@@ -92,14 +79,54 @@ let modalManager = (function () {
         /* Adds Modal Image */
         let imageElement = new Image();
         imageElement.src = pokemon.imageURL;
-        imageElement.alt = "Picture of " + pokemon.name;
+        imageElement.alt = 'Picture of ' + pokemon.name;
         imageElement.classList.add('modal-image');
-        imageHolder.appendChild(imageElement);
+        imageHolder.append(imageElement);
+
+        /* Adds current details */
+        let detailsContainer = document.createElement('div');
+        detailsContainer.classList.add('row');
+
+        //LABELS
+        let labelsColumn = document.createElement('div');
+        labelsColumn.classList.add('col-md-8');
+        labelsColumn.classList.add('text-small');
+        
+        let idLabel = document.createElement('p');
+        idLabel.textContent = 'National Pokedex ID:';
+        idLabel.classList.add('fs-3');
+        labelsColumn.append(idLabel);
+
+        let typeLabel = document.createElement('p');
+        typeLabel.classList.add('fs-3');
+        typeLabel.textContent = 'Type';
+        labelsColumn.append(typeLabel);
+
+
+
+        //DATA
+        let dataColumn = document.createElement('div');
+        dataColumn.classList.add('col-md-4');
+        
+        let idData = document.createElement('p');
+        idData.innerHTML = pokemon.id;
+        idData.classList.add('fs-3');
+        dataColumn.append(idData)
+
+        let typeData = document.createElement('p');
+        typeData.innerHTML = pokemon.types[0].type.name;
+        if (pokemon.types.length > 1)
+            typeData.innerHTML += ' / ' + pokemon.types[1].type.name;
+        typeData.classList.add('fs-3');
+        dataColumn.append(typeData)
+
+        detailsContainer.append(labelsColumn);
+        detailsContainer.append(dataColumn);
 
 
         modalTitle.append(nameElement);
         modalBody.append(imageHolder);
-        modalBody.append(detailsElement);
+        modalBody.append(detailsContainer);
     }
 
     function showLoading() {
