@@ -71,13 +71,19 @@ let modalManager = (function () {
         nameElement.innerHTML = pokemon.name;
 
         /* Adds current details */
+        let detailsElement = document.createElement('div');
+
         let typesElement = document.createElement('p');
         typesElement.innerHTML = 'type: ' + pokemon.types[0].type.name;
         if (pokemon.types.length > 1)
             typesElement.innerHTML += ' / ' + pokemon.types[1].type.name;
+        
         let idElement = document.createElement('p');
         idElement.innerHTML = 'National Pokedex ID: ' + pokemon.id;
 
+        detailsElement.append(typesElement);
+        detailsElement.append(idElement);
+        
         /* Adds Modal Image Holder */
         let imageHolder = document.createElement('div');
         imageHolder.classList.add(pokemon.types[0].type.name.toLowerCase());
@@ -93,7 +99,7 @@ let modalManager = (function () {
 
         modalTitle.append(nameElement);
         modalBody.append(imageHolder);
-        modalBody.append(typesElement);
+        modalBody.append(detailsElement);
     }
 
     function showLoading() {
@@ -241,7 +247,7 @@ let pokemonRepository = (function () {
         if (filter == 'SEARCH_BY_INPUT')
             filter = document.querySelector('#search-input').value;
 
-        console.log("filtering by: " + filter);
+        console.log('filtering by: ' + filter);
 
         if (filter == '') return false;
 
