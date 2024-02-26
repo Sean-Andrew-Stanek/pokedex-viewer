@@ -57,9 +57,10 @@ let createDropdownOptions = (function () {
 /* Functions to show:
     Loading Modal
     Pokemon Details Modal */
-let modalManager = (function () {
+let modalManager = function () {
     /* Will add details from pokemon parameter */
     function showModal(pokemon) {
+        /*Select the body and title of the modal*/
         let modalBody = document.querySelector('#pokemon-details');
         let modalTitle = document.querySelector('#pokemon-name');
 
@@ -67,6 +68,7 @@ let modalManager = (function () {
         modalTitle.innerHTML = '';
         modalBody.innerHTML = '';
 
+        //Name as Title
         let nameElement = document.createElement('h1');
         nameElement.innerHTML = pokemon.name;
 
@@ -113,9 +115,9 @@ let modalManager = (function () {
         showLoading: showLoading,
         hideLoading: hideLoading,
     };
-})();
+}();
 
-let pokemonRepository = (function (typeList = []) {
+let pokemonRepository = (function () {
     let pokemonList = [];
     let currentFilteredList = [];
     let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=100';
@@ -241,7 +243,7 @@ let pokemonRepository = (function (typeList = []) {
         if (filter == 'SEARCH_BY_INPUT')
             filter = document.querySelector('#search-input').value;
 
-        console.log("filtering by: " + filter);
+        console.log('filtering by: ' + filter);
 
         if (filter == '') return false;
 
@@ -295,7 +297,7 @@ let pokemonRepository = (function (typeList = []) {
 let initializeData = (async function () {
     modalManager.showLoading();
     await pokemonRepository.loadList();
-    console.log("Data Loaded");
+    console.log('Data Loaded');
     modalManager.hideLoading();
     createButtons();
 })();
