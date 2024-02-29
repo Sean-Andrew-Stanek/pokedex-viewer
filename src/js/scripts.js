@@ -21,7 +21,7 @@ const pokemonTypeList = [
     'fairy',
 ];
 
-document.getElementById("submit-button").addEventListener("click", function(event){
+document.getElementById('submit-button').addEventListener('click', function(event){
     event.preventDefault();
 });
 
@@ -70,14 +70,7 @@ let modalManager = (function () {
         let nameElement = document.createElement('h1');
         nameElement.innerHTML = pokemon.name;
 
-        /* Adds current details */
-        let typesElement = document.createElement('p');
-        typesElement.innerHTML = 'type: ' + pokemon.types[0].type.name;
-        if (pokemon.types.length > 1)
-            typesElement.innerHTML += ' / ' + pokemon.types[1].type.name;
-        let idElement = document.createElement('p');
-        idElement.innerHTML = 'National Pokedex ID: ' + pokemon.id;
-
+        
         /* Adds Modal Image Holder */
         let imageHolder = document.createElement('div');
         imageHolder.classList.add(pokemon.types[0].type.name.toLowerCase());
@@ -86,14 +79,54 @@ let modalManager = (function () {
         /* Adds Modal Image */
         let imageElement = new Image();
         imageElement.src = pokemon.imageURL;
-        imageElement.alt = "Picture of " + pokemon.name;
+        imageElement.alt = 'Picture of ' + pokemon.name;
         imageElement.classList.add('modal-image');
-        imageHolder.appendChild(imageElement);
+        imageHolder.append(imageElement);
+
+        /* Adds current details */
+        let detailsContainer = document.createElement('div');
+        detailsContainer.classList.add('row');
+
+        //LABELS
+        let labelsColumn = document.createElement('div');
+        labelsColumn.classList.add('col-md-8');
+        labelsColumn.classList.add('text-small');
+        
+        let idLabel = document.createElement('p');
+        idLabel.textContent = 'National Pokedex ID:';
+        idLabel.classList.add('fs-3');
+        labelsColumn.append(idLabel);
+
+        let typeLabel = document.createElement('p');
+        typeLabel.classList.add('fs-3');
+        typeLabel.textContent = 'Type';
+        labelsColumn.append(typeLabel);
+
+
+
+        //DATA
+        let dataColumn = document.createElement('div');
+        dataColumn.classList.add('col-md-4');
+        
+        let idData = document.createElement('p');
+        idData.innerHTML = pokemon.id;
+        idData.classList.add('fs-3');
+        dataColumn.append(idData)
+
+        let typeData = document.createElement('p');
+        typeData.innerHTML = pokemon.types[0].type.name;
+        if (pokemon.types.length > 1)
+            typeData.innerHTML += ' / ' + pokemon.types[1].type.name;
+        typeData.classList.add('fs-3');
+        dataColumn.append(typeData)
+
+        detailsContainer.append(labelsColumn);
+        detailsContainer.append(dataColumn);
 
 
         modalTitle.append(nameElement);
         modalBody.append(imageHolder);
-        modalBody.append(typesElement);
+        modalBody.append(detailsContainer);
     }
 
     function showLoading() {
@@ -115,10 +148,10 @@ let modalManager = (function () {
     };
 })();
 
-let pokemonRepository = (function (typeList = []) {
+let pokemonRepository = (function () {
     let pokemonList = [];
     let currentFilteredList = [];
-    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=100';
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     function add(pokemon) {
         if (
@@ -241,7 +274,7 @@ let pokemonRepository = (function (typeList = []) {
         if (filter == 'SEARCH_BY_INPUT')
             filter = document.querySelector('#search-input').value;
 
-        console.log("filtering by: " + filter);
+        console.log('filtering by: ' + filter);
 
         if (filter == '') return false;
 

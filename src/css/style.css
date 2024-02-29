@@ -76,7 +76,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%
+    height: 100%;
+    border: black 3px solid;
 }
 
 .modal-image {
@@ -89,6 +90,10 @@ main {
     background: url('../images/poke_background.png');
     background-size: cover;
     background-position: center;
+}
+
+.modal-title {
+    text-align: center;
 }
 
 #loading-screen {
@@ -177,6 +182,7 @@ main {
     box-sizing: border-box;
     width: 60px;
     height: 60px;
+    padding: 5px;
 }
 
 .pokemon-button:active img {
