@@ -14,7 +14,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap"
             rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="./dist/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="./src/css/style.css" />
         <title>Pokemon Database</title>
     </head>
 
@@ -117,29 +117,38 @@
             id="pokeDetailsModal"
             tabindex="-1"
             role="dialog"
-            aria-labelledby="exampleModelLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div 
+                    class="modal-content rounded"
+                    style="border: black 2px solid;">
                     <div class="modal-header">
-                        <h1
-                            class="modal-title"
-                            id="pokemon-name"
-                            aria-label="Pokemon Details">
-                            Pokemon Database
-                        </h1>
-                        <button
-                            type="button"
-                            class="close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-10 offset-1">
+                                    <h1
+                                        class="modal-title"
+                                        style="color:black"
+                                        id="pokemon-name"
+                                        aria-label="Pokemon Details">
+                                        Pokemon Database
+                                    </h1>
+                                </div>
+                                <div class="col-1">
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>    
+                        </div>
                     </div>
                     <div
-                        class="modal-body justify-content-center"
+                        class="modal-body"
                         id="pokemon-details">
-                        <!-- INSERT STUFF HERE -->
                     </div>
                     <div class="modal-footer">
                         <button
