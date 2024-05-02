@@ -151,7 +151,7 @@ let modalManager = (function () {
 let pokemonRepository = (function () {
     let pokemonList = [];
     let currentFilteredList = [];
-    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=780';
 
     function add(pokemon) {
         if (
